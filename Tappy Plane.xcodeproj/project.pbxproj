@@ -23,6 +23,8 @@
 		32D9491E1923EAB4006914A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D9491C1923EAB4006914A9 /* InfoPlist.strings */; };
 		32D949201923EAB4006914A9 /* Tappy_PlaneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D9491F1923EAB4006914A9 /* Tappy_PlaneTests.m */; };
 		32D9492B1923EB4B006914A9 /* TPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D9492A1923EB4B006914A9 /* TPGameScene.m */; };
+		32D949461923F7E6006914A9 /* Planes.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 32D949451923F7E6006914A9 /* Planes.atlas */; };
+		32D949491923F910006914A9 /* TPPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D949481923F910006914A9 /* TPPlane.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,9 @@
 		32D9491F1923EAB4006914A9 /* Tappy_PlaneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tappy_PlaneTests.m; sourceTree = "<group>"; };
 		32D949291923EB4B006914A9 /* TPGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPGameScene.h; sourceTree = "<group>"; };
 		32D9492A1923EB4B006914A9 /* TPGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPGameScene.m; sourceTree = "<group>"; };
+		32D949451923F7E6006914A9 /* Planes.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Planes.atlas; sourceTree = "<group>"; };
+		32D949471923F910006914A9 /* TPPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPlane.h; sourceTree = "<group>"; };
+		32D949481923F910006914A9 /* TPPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPlane.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +124,7 @@
 		32D948F51923EAB4006914A9 /* Tappy Plane */ = {
 			isa = PBXGroup;
 			children = (
+				32D949451923F7E6006914A9 /* Planes.atlas */,
 				32D948FE1923EAB4006914A9 /* TPAppDelegate.h */,
 				32D948FF1923EAB4006914A9 /* TPAppDelegate.m */,
 				32D949011923EAB4006914A9 /* Main.storyboard */,
@@ -126,6 +132,8 @@
 				32D949051923EAB4006914A9 /* TPViewController.m */,
 				32D949291923EB4B006914A9 /* TPGameScene.h */,
 				32D9492A1923EB4B006914A9 /* TPGameScene.m */,
+				32D949471923F910006914A9 /* TPPlane.h */,
+				32D949481923F910006914A9 /* TPPlane.m */,
 				32D9490C1923EAB4006914A9 /* Images.xcassets */,
 				32D948F61923EAB4006914A9 /* Supporting Files */,
 			);
@@ -240,6 +248,7 @@
 			files = (
 				32D948FA1923EAB4006914A9 /* InfoPlist.strings in Resources */,
 				32D9490D1923EAB4006914A9 /* Images.xcassets in Resources */,
+				32D949461923F7E6006914A9 /* Planes.atlas in Resources */,
 				32D949031923EAB4006914A9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,6 +271,7 @@
 				32D949061923EAB4006914A9 /* TPViewController.m in Sources */,
 				32D949001923EAB4006914A9 /* TPAppDelegate.m in Sources */,
 				32D948FC1923EAB4006914A9 /* main.m in Sources */,
+				32D949491923F910006914A9 /* TPPlane.m in Sources */,
 				32D9492B1923EB4B006914A9 /* TPGameScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
