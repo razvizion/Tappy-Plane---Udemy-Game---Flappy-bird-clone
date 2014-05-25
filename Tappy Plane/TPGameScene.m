@@ -104,7 +104,7 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         // setup game over menu
         
         _gameOverMenu = [[TPGameOverMenu alloc]initWithSize:size];
-       // [self addChild:_gameOverMenu];
+        [self addChild:_gameOverMenu];
         
         //Start a new game
         [self newGame];

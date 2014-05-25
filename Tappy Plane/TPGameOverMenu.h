@@ -24,6 +24,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) MedalType medal;
 
 -(instancetype)initWithSize:(CGSize)size;
+-(void)show;
 
 
 @end
