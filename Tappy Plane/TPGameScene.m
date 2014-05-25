@@ -13,6 +13,7 @@
 #import "TPObstacleLayer.h"
 #import "TPBitmapFontLabel.h"
 #import "TPTilesetTextureProvider.h"
+#import "TPGameOverMenu.h"
 
 @interface TPGameScene ()
 @property (nonatomic) TPPlane *player;
@@ -22,6 +23,7 @@
 @property (nonatomic) TPScrollingLayer *foreground;
 @property (nonatomic) TPBitmapFontLabel *scoreLabel;
 @property (nonatomic) NSInteger score;
+@property (nonatomic) TPGameOverMenu *gameOverMenu;
 
 
 @end
@@ -99,8 +101,15 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         _scoreLabel.position = CGPointMake(self.size.width * 0.5, self.size.height - 100);
         [self addChild:_scoreLabel];
         
+        // setup game over menu
+        
+        _gameOverMenu = [[TPGameOverMenu alloc]initWithSize:size];
+        [self addChild:_gameOverMenu];
+        
         //Start a new game
         [self newGame];
+        
+        
         
 
     }
