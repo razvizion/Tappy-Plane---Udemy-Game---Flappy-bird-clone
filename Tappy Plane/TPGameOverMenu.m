@@ -8,6 +8,13 @@
 
 #import "TPGameOverMenu.h"
 
+@interface TPGameOverMenu()
+
+@property (nonatomic) SKSpriteNode *medalDisplay;
+
+@end
+
+
 @implementation TPGameOverMenu
 
 
@@ -53,8 +60,39 @@
         medalTitle.anchorPoint = CGPointMake(0.0, 1.0);
         medalTitle.position = CGPointMake(CGRectGetMinX(panelBackground.frame)+20, CGRectGetMaxY(panelBackground.frame)-10);
         [panelGroup addChild:medalTitle];
+        
+        _medalDisplay = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"medalBlank"]] ;
+        _medalDisplay.anchorPoint = CGPointMake(0.5, 1.0);
+        _medalDisplay.position = CGPointMake(CGRectGetMidX(medalTitle.frame), CGRectGetMinY(medalTitle.frame)-15);
+        [panelGroup addChild:_medalDisplay];
+        
+        //Set initial values
+        self.medal = MedalNone;
     }
     return self;
+}
+
+-(void)setMedal:(MedalType)medal
+{
+    _medal = medal;
+    switch (medal) {
+        case MedalBronze:
+            self.medalDisplay.texture = [[SKTextureAtlas atlasNamed:@"Graphics"] textureNamed:@"medalBronze"];
+            
+            break;
+        case MedalSilver:
+            self.medalDisplay.texture = [[SKTextureAtlas atlasNamed:@"Graphics"] textureNamed:@"medalSilver"];
+            
+            break;
+        case MedalGold:
+            self.medalDisplay.texture = [[SKTextureAtlas atlasNamed:@"Graphics"] textureNamed:@"medalGold"];
+            
+            break;
+            
+        default:
+            self.medalDisplay.texture = [[SKTextureAtlas atlasNamed:@"Graphics"] textureNamed:@"medalBlank"];
+            break;
+    }
 }
 
 @end
