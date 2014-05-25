@@ -11,6 +11,8 @@
 #import "TPScrollingLayer.h"
 #import "TPConstants.h"
 #import "TPObstacleLayer.h"
+#import "TPBitmapFontLabel.h"
+#import "TPTilesetTextureProvider.h"
 
 @interface TPGameScene ()
 @property (nonatomic) TPPlane *player;
@@ -18,6 +20,9 @@
 @property (nonatomic) TPObstacleLayer *obstacles;
 @property (nonatomic) TPScrollingLayer *background;
 @property (nonatomic) TPScrollingLayer *foreground;
+@property (nonatomic) TPBitmapFontLabel *scoreLabel;
+@property (nonatomic) NSInteger score;
+
 
 @end
 
@@ -62,8 +67,11 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         [_world addChild:_background];
         
         
+        
+        
         //Setup obstacle layer.
         _obstacles = [[TPObstacleLayer alloc]init];
+        _obstacles.collectableDelegate = self;
         _obstacles.horizontalScrollSpeed = -80;
         _obstacles.scrolling = YES;
         _obstacles.floor = 0.0;
@@ -83,9 +91,13 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         
         //Setup player
         _player = [[TPPlane alloc]init];
-        _player.position = CGPointMake(self.size.width * 0.5, self.size.height * 0.5);
         _player.physicsBody.affectedByGravity = NO;
         [_world addChild:_player];
+        
+        // Setup score label.
+        _scoreLabel = [[TPBitmapFontLabel alloc] initWithText:@"0" andFrontName:@"number"];
+        _scoreLabel.position = CGPointMake(self.size.width * 0.5, self.size.height - 100);
+        [self addChild:_scoreLabel];
         
         //Start a new game
         [self newGame];
@@ -129,29 +141,51 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
 -(void)newGame
 {
     
+    //Randomize tileser
+    [[TPTilesetTextureProvider getProvider] ranodmizeTileset];
+    
     //Reset layers
     self.foreground.position = CGPointZero;
+    
+    for (SKSpriteNode *node in self.foreground.children) {
+        node.texture = [[TPTilesetTextureProvider getProvider] getTextureForKey:@"ground"];
+    }
+    
+    
     [self.foreground layoutTiles];
     
     self.obstacles.position = CGPointZero;
     [self.obstacles reset];
     
-    self.background.position = CGPointMake(0, 30);
+    self.background.position = CGPointZero;
     [self.background layoutTiles];
     
     self.obstacles.scrolling = NO;
     
+    //reset score
+    self.score = 0;
+
+    
     //reset plane
-    self.player.position = CGPointMake(self.size.width * 0.5, self.size.height * 0.5);
+    self.player.position = CGPointMake(self.size.width * 0.3, self.size.height * 0.5);
     self.player.physicsBody.affectedByGravity = NO;
     
     [self.player reset];
 }
+-(void)wasCollected:(TPCollectable *)collectable
+{
+    self.score += collectable.pointValue;
+}
 
+-(void)setScore:(NSInteger)score
+{
+    _score=score;
+    self.scoreLabel.text = [NSString stringWithFormat:@"%ld",(long)score];
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UITouch *touch in touches) {
+   
         
         if(self.player.crashed){
             //Reset
@@ -164,14 +198,14 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         }
         
       
-    }
+    
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UITouch *touch in touches) {
+    
         self.player.accelerating = NO;
-    }
+    
 }
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {

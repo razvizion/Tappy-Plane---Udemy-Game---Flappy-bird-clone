@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32006EF0192A86FB002CF26F /* TPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 32006EEF192A86FB002CF26F /* TPConstants.m */; };
+		3256133A1931FD2100960D95 /* TPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 325613391931FD2100960D95 /* TPButton.m */; };
 		32D948EE1923EAB4006914A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D948ED1923EAB4006914A9 /* Foundation.framework */; };
 		32D948F01923EAB4006914A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D948EF1923EAB4006914A9 /* CoreGraphics.framework */; };
 		32D948F21923EAB4006914A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D948F11923EAB4006914A9 /* UIKit.framework */; };
@@ -29,7 +30,11 @@
 		32D9494B1923FDCE006914A9 /* PlaneAnimations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32D9494A1923FDCE006914A9 /* PlaneAnimations.plist */; };
 		32D94950192419D4006914A9 /* PlanePuffTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 32D9494E192419D4006914A9 /* PlanePuffTrail.sks */; };
 		32D94951192419D4006914A9 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D9494F192419D4006914A9 /* spark.png */; };
+		32DC2B65192E83FA009570F7 /* TPCollectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DC2B64192E83FA009570F7 /* TPCollectable.m */; };
+		32DC2B68192EA48F009570F7 /* TPBitmapFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DC2B67192EA48F009570F7 /* TPBitmapFontLabel.m */; };
 		32E5F626192BC6AE00F25DF2 /* TPObstacleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E5F625192BC6AE00F25DF2 /* TPObstacleLayer.m */; };
+		32E90DAD192FEA97008B017C /* TilesetGraphics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E90DAC192FEA97008B017C /* TilesetGraphics.plist */; };
+		32E90DB0192FFAB1008B017C /* TPTilesetTextureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E90DAF192FFAB1008B017C /* TPTilesetTextureProvider.m */; };
 		32F91B8119252C0900588829 /* TPScrollingNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F91B8019252C0900588829 /* TPScrollingNode.m */; };
 		32F91B8419252D5A00588829 /* TPScrollingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F91B8319252D5A00588829 /* TPScrollingLayer.m */; };
 /* End PBXBuildFile section */
@@ -47,6 +52,8 @@
 /* Begin PBXFileReference section */
 		32006EEE192A86FB002CF26F /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		32006EEF192A86FB002CF26F /* TPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPConstants.m; sourceTree = "<group>"; };
+		325613381931FD2100960D95 /* TPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPButton.h; sourceTree = "<group>"; };
+		325613391931FD2100960D95 /* TPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPButton.m; sourceTree = "<group>"; };
 		32D948EA1923EAB4006914A9 /* Tappy Plane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tappy Plane.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32D948ED1923EAB4006914A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32D948EF1923EAB4006914A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -75,8 +82,15 @@
 		32D9494A1923FDCE006914A9 /* PlaneAnimations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PlaneAnimations.plist; sourceTree = "<group>"; };
 		32D9494E192419D4006914A9 /* PlanePuffTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlanePuffTrail.sks; sourceTree = "<group>"; };
 		32D9494F192419D4006914A9 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		32DC2B63192E83FA009570F7 /* TPCollectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCollectable.h; sourceTree = "<group>"; };
+		32DC2B64192E83FA009570F7 /* TPCollectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPCollectable.m; sourceTree = "<group>"; };
+		32DC2B66192EA48F009570F7 /* TPBitmapFontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBitmapFontLabel.h; sourceTree = "<group>"; };
+		32DC2B67192EA48F009570F7 /* TPBitmapFontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPBitmapFontLabel.m; sourceTree = "<group>"; };
 		32E5F624192BC6AE00F25DF2 /* TPObstacleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPObstacleLayer.h; sourceTree = "<group>"; };
 		32E5F625192BC6AE00F25DF2 /* TPObstacleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPObstacleLayer.m; sourceTree = "<group>"; };
+		32E90DAC192FEA97008B017C /* TilesetGraphics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TilesetGraphics.plist; sourceTree = "<group>"; };
+		32E90DAE192FFAB1008B017C /* TPTilesetTextureProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTilesetTextureProvider.h; sourceTree = "<group>"; };
+		32E90DAF192FFAB1008B017C /* TPTilesetTextureProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTilesetTextureProvider.m; sourceTree = "<group>"; };
 		32F91B7F19252C0900588829 /* TPScrollingNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPScrollingNode.h; sourceTree = "<group>"; };
 		32F91B8019252C0900588829 /* TPScrollingNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPScrollingNode.m; sourceTree = "<group>"; };
 		32F91B8219252D5A00588829 /* TPScrollingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPScrollingLayer.h; sourceTree = "<group>"; };
@@ -147,8 +161,12 @@
 				32D949451923F7E6006914A9 /* Graphics.atlas */,
 				32006EEE192A86FB002CF26F /* TPConstants.h */,
 				32006EEF192A86FB002CF26F /* TPConstants.m */,
+				32E90DAE192FFAB1008B017C /* TPTilesetTextureProvider.h */,
+				32E90DAF192FFAB1008B017C /* TPTilesetTextureProvider.m */,
 				32D948FE1923EAB4006914A9 /* TPAppDelegate.h */,
 				32D948FF1923EAB4006914A9 /* TPAppDelegate.m */,
+				32DC2B66192EA48F009570F7 /* TPBitmapFontLabel.h */,
+				32DC2B67192EA48F009570F7 /* TPBitmapFontLabel.m */,
 				32D949011923EAB4006914A9 /* Main.storyboard */,
 				32D949041923EAB4006914A9 /* TPViewController.h */,
 				32D949051923EAB4006914A9 /* TPViewController.m */,
@@ -156,6 +174,10 @@
 				32D9492A1923EB4B006914A9 /* TPGameScene.m */,
 				32D949471923F910006914A9 /* TPPlane.h */,
 				32D949481923F910006914A9 /* TPPlane.m */,
+				325613381931FD2100960D95 /* TPButton.h */,
+				325613391931FD2100960D95 /* TPButton.m */,
+				32DC2B63192E83FA009570F7 /* TPCollectable.h */,
+				32DC2B64192E83FA009570F7 /* TPCollectable.m */,
 				32E5F624192BC6AE00F25DF2 /* TPObstacleLayer.h */,
 				32E5F625192BC6AE00F25DF2 /* TPObstacleLayer.m */,
 				32F91B7F19252C0900588829 /* TPScrollingNode.h */,
@@ -201,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				32D9494A1923FDCE006914A9 /* PlaneAnimations.plist */,
+				32E90DAC192FEA97008B017C /* TilesetGraphics.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -293,6 +316,7 @@
 			files = (
 				32D948FA1923EAB4006914A9 /* InfoPlist.strings in Resources */,
 				32D9494B1923FDCE006914A9 /* PlaneAnimations.plist in Resources */,
+				32E90DAD192FEA97008B017C /* TilesetGraphics.plist in Resources */,
 				32D94950192419D4006914A9 /* PlanePuffTrail.sks in Resources */,
 				32D94951192419D4006914A9 /* spark.png in Resources */,
 				32D9490D1923EAB4006914A9 /* Images.xcassets in Resources */,
@@ -319,10 +343,14 @@
 				32D949061923EAB4006914A9 /* TPViewController.m in Sources */,
 				32E5F626192BC6AE00F25DF2 /* TPObstacleLayer.m in Sources */,
 				32006EF0192A86FB002CF26F /* TPConstants.m in Sources */,
+				3256133A1931FD2100960D95 /* TPButton.m in Sources */,
 				32D949001923EAB4006914A9 /* TPAppDelegate.m in Sources */,
 				32D948FC1923EAB4006914A9 /* main.m in Sources */,
 				32D949491923F910006914A9 /* TPPlane.m in Sources */,
+				32DC2B65192E83FA009570F7 /* TPCollectable.m in Sources */,
+				32E90DB0192FFAB1008B017C /* TPTilesetTextureProvider.m in Sources */,
 				32D9492B1923EB4B006914A9 /* TPGameScene.m in Sources */,
+				32DC2B68192EA48F009570F7 /* TPBitmapFontLabel.m in Sources */,
 				32F91B8419252D5A00588829 /* TPScrollingLayer.m in Sources */,
 				32F91B8119252C0900588829 /* TPScrollingNode.m in Sources */,
 			);

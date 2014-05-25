@@ -8,6 +8,7 @@
 
 #import "TPObstacleLayer.h"
 #import "TPConstants.h"
+#import "TPTilesetTextureProvider.h"
 
 @interface TPObstacleLayer()
 
@@ -18,8 +19,13 @@
 static const CGFloat kTPMarkerBuffer = 200.0;
 static const CGFloat kTPVerticalGap = 90.0;
 static const CGFloat kTPSpaceBetweenObstacleSets = 180;
+static const int kTPCollectableVerticalRange = 200;
+static const CGFloat kTPCollectableClearance = 50.0;
+
+
 static NSString *const kTPKeyMountainUp = @"MountainUp";
 static NSString *const kTPKeyMountainDown = @"MountainDown";
+static NSString *const kTPKeyCollectableStar = @"CollectableStar";
 
 @implementation TPObstacleLayer
 
@@ -36,10 +42,17 @@ static NSString *const kTPKeyMountainDown = @"MountainDown";
 
 -(void)reset
 {
-    //Loop through child nodes and reposition for reuse.
+    //Loop through child nodes and reposition for reuse and update texture.
     for (SKNode *node in self.children) {
         node.position = CGPointMake(-1000, 0);
+        if(node.name == kTPKeyMountainUp){
+            ((SKSpriteNode *)node).texture = [[TPTilesetTextureProvider getProvider] getTextureForKey:@"mountainUp"];
+        }
+        if(node.name == kTPKeyMountainDown){
+            ((SKSpriteNode *)node).texture = [[TPTilesetTextureProvider getProvider] getTextureForKey:@"mountainDown"];
+        }
     }
+    
     
     // Reposition marker.
     if(self.scene){
@@ -100,6 +113,19 @@ static NSString *const kTPKeyMountainDown = @"MountainDown";
     
     mountineUp.position = CGPointMake(self.marker, self.floor+ (mountineDown.size.height*0.5) - yAdjustment);
     mountineDown.position = CGPointMake(self.marker, mountineUp.position.y + mountineDown.size.height + kTPVerticalGap);
+    
+    //Get collectable star node
+    
+    SKSpriteNode *collectable = [self getUnusedObjectForKey:kTPKeyCollectableStar];
+    
+    //position collectable
+    
+    CGFloat midPoint = mountineUp.position.y + (mountineUp.size.height *0.5)+ (kTPVerticalGap*0.5);
+    CGFloat yPosition = midPoint + arc4random_uniform(kTPCollectableVerticalRange) - (kTPCollectableVerticalRange*0.5);
+    yPosition = fmaxf(yPosition, self.floor + kTPCollectableClearance);
+    yPosition = fminf(yPosition, self.ceiling - kTPCollectableClearance);
+    collectable.position = CGPointMake(self.marker + (kTPSpaceBetweenObstacleSets*0.5), yPosition);
+    
   
     //Reposition marker.
     
@@ -115,7 +141,7 @@ static NSString *const kTPKeyMountainDown = @"MountainDown";
     
     if(key == kTPKeyMountainUp)
     {
-        object = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"MountainGrass"]];
+        object = [SKSpriteNode spriteNodeWithTexture:[[TPTilesetTextureProvider getProvider] getTextureForKey:@"mountainUp"]];
         
         CGFloat offsetX = object.frame.size.width * object.anchorPoint.x;
         CGFloat offsetY = object.frame.size.height * object.anchorPoint.y;
@@ -132,7 +158,7 @@ static NSString *const kTPKeyMountainDown = @"MountainDown";
     }
     else if (key == kTPKeyMountainDown)
     {
-        object = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"MountainGrassDown"]];
+        object = [SKSpriteNode spriteNodeWithTexture:[[TPTilesetTextureProvider getProvider] getTextureForKey:@"mountainDown"]];
         
         CGFloat offsetX = object.frame.size.width * object.anchorPoint.x;
         CGFloat offsetY = object.frame.size.height * object.anchorPoint.y;
@@ -146,6 +172,19 @@ static NSString *const kTPKeyMountainDown = @"MountainDown";
         object.physicsBody.categoryBitMask = kTPCategoryGround;
         
         [self addChild:object];
+    }
+    else if (key == kTPKeyCollectableStar)
+    {
+        object = [TPCollectable spriteNodeWithTexture:[atlas textureNamed:@"starGold"]];
+        ((TPCollectable *)object).pointValue=1;
+        ((TPCollectable *)object).delegate = self.collectableDelegate;
+        object.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:object.size.width*0.33];
+        object.physicsBody.categoryBitMask = kTPCategoryCollectable;
+        object.physicsBody.dynamic = NO;
+        
+        [self addChild:object];
+        
+        
     }
     if(object){
         object.name = key;
