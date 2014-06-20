@@ -13,7 +13,15 @@
 #import "TPObstacleLayer.h"
 #import "TPBitmapFontLabel.h"
 #import "TPTilesetTextureProvider.h"
-#import "TPGameOverMenu.h"
+#import "TPGetReadyMenu.h"
+#import "TPWeatherLayer.h"
+#import "SoundManager.h"
+
+typedef enum : NSUInteger {
+    GameReady,
+    GameRunning,
+    GameOver,
+} GameState;
 
 @interface TPGameScene ()
 @property (nonatomic) TPPlane *player;
@@ -23,18 +31,27 @@
 @property (nonatomic) TPScrollingLayer *foreground;
 @property (nonatomic) TPBitmapFontLabel *scoreLabel;
 @property (nonatomic) NSInteger score;
+@property (nonatomic) NSInteger bestScore;
 @property (nonatomic) TPGameOverMenu *gameOverMenu;
+@property (nonatomic) TPGetReadyMenu *getReadyMenu;
+@property (nonatomic) GameState gameState;
+@property (nonatomic) TPWeatherLayer *weather;
 
 
 @end
 
 static const CGFloat kMinFPS = 10.0 / 60.0;
+static NSString *const kTPKeyBestScore = @"BestScore";
 
 @implementation TPGameScene
 
 -(id)initWithSize:(CGSize)size
 {
     if(self = [super initWithSize:size]){
+        
+        //Init audio
+        
+        [[SoundManager sharedManager] prepareToPlayWithSound:@"Crunch.caf"];
         
         //Set background coloe
         
@@ -96,15 +113,32 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         _player.physicsBody.affectedByGravity = NO;
         [_world addChild:_player];
         
+        // Setup weather.
+        _weather = [[TPWeatherLayer alloc]initWithSize:self.size];
+        
+        [_world addChild:_weather];
+        
+        
+        
         // Setup score label.
         _scoreLabel = [[TPBitmapFontLabel alloc] initWithText:@"0" andFrontName:@"number"];
         _scoreLabel.position = CGPointMake(self.size.width * 0.5, self.size.height - 100);
         [self addChild:_scoreLabel];
         
+        // Load best score.
+        self.bestScore = [[NSUserDefaults standardUserDefaults] integerForKey:kTPKeyBestScore];
+        
         // setup game over menu
         
         _gameOverMenu = [[TPGameOverMenu alloc]initWithSize:size];
-        [self addChild:_gameOverMenu];
+        
+        _gameOverMenu.delegate=self;
+        
+        
+        //Setup get ready menu
+        
+        _getReadyMenu = [[TPGetReadyMenu alloc]initWithSize:size andPlanePosition:CGPointMake(self.size.width * 0.3, self.size.height * 0.5)];
+        [self addChild:_getReadyMenu];
         
         //Start a new game
         [self newGame];
@@ -147,11 +181,51 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
     return sprite;
 }
 
+-(void)pressedStartNewGameButton
+{
+    SKSpriteNode *blackRectangle = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:self.size];
+    blackRectangle.anchorPoint = CGPointZero;
+    blackRectangle.alpha = 0;
+    [self addChild:blackRectangle];
+    
+    SKAction *startNewGame = [SKAction runBlock:^{
+        [self newGame];
+        [self.gameOverMenu removeFromParent];
+        [self.getReadyMenu show];
+    }];
+    
+    SKAction *fadeTransition = [SKAction sequence:@[[SKAction fadeInWithDuration:0.4],startNewGame,[SKAction fadeOutWithDuration:0.4]]];
+    [blackRectangle runAction:fadeTransition];
+    
+    
+    
+}
+
 -(void)newGame
 {
     
     //Randomize tileser
     [[TPTilesetTextureProvider getProvider] ranodmizeTileset];
+    
+    // Set weather condditions
+    
+    NSString *tilesetName = [TPTilesetTextureProvider getProvider].currentTilesetName;
+    self.weather.conditions = WeatherClear;
+    
+    if([tilesetName isEqualToString:kTPTilesetIce] || [tilesetName isEqualToString:kTPTilesetSnow])
+    {
+        if(arc4random_uniform(2)==0){
+            self.weather.conditions = WeatherSnowing;
+        }
+    }
+    
+    if([tilesetName isEqualToString:kTPTilesetGrass] || [tilesetName isEqualToString:kTPTilesetDirt])
+    {
+        if(arc4random_uniform(3)==0){
+            self.weather.conditions = WeatherRaining;
+        }
+    }
+    
     
     //Reset layers
     self.foreground.position = CGPointZero;
@@ -173,13 +247,37 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
     
     //reset score
     self.score = 0;
-
+    self.scoreLabel.alpha = 1.0;
     
     //reset plane
     self.player.position = CGPointMake(self.size.width * 0.3, self.size.height * 0.5);
     self.player.physicsBody.affectedByGravity = NO;
     
     [self.player reset];
+    
+    
+    // Set Game ready state
+    self.gameState = GameReady;
+}
+-(void)gameOver
+{
+    // Update game state
+    self.gameState = GameOver;
+    //Fade out score displau
+    [self.scoreLabel runAction:[SKAction fadeOutWithDuration:0.4]];
+    // Show game over menu. Set properties
+    self.gameOverMenu.score = self.score;
+    
+    self.gameOverMenu.medal = [self getMedalForCurrentScore];
+    //Update best score
+    if(self.score > self.bestScore){
+        self.bestScore = self.score;
+        [[NSUserDefaults standardUserDefaults] setInteger:self.bestScore forKey:kTPKeyBestScore];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    self.gameOverMenu.bestScore = self.bestScore;
+    [self addChild:self.gameOverMenu];
+    [self.gameOverMenu show];
 }
 -(void)wasCollected:(TPCollectable *)collectable
 {
@@ -195,16 +293,17 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
    
-        
-        if(self.player.crashed){
-            //Reset
-            [self newGame];
-        }else
-        {
-            _player.physicsBody.affectedByGravity = YES;
-            self.player.accelerating = YES;
-            self.obstacles.scrolling = YES;
-        }
+  
+    if (self.gameState == GameReady) {
+        [self.getReadyMenu hide];
+        self.player.physicsBody.affectedByGravity = YES;
+        self.obstacles.scrolling = YES;
+        self.gameState = GameRunning;
+    }
+    if(self.gameState == GameRunning)
+    {
+        self.player.accelerating = YES;
+    }
         
       
     
@@ -212,8 +311,9 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    
+    if(self.gameState == GameRunning){
         self.player.accelerating = NO;
+    }
     
 }
 -(void)didBeginContact:(SKPhysicsContact *)contact
@@ -226,6 +326,13 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
     }
 }
 
+-(void)bump
+{
+    SKAction *bump = [SKAction sequence:@[[SKAction moveBy:CGVectorMake(-5, -4) duration:0.1],
+                                          [SKAction moveTo:CGPointZero duration:0.1]]];
+    [self.world runAction:bump];
+}
+
 -(void)update:(NSTimeInterval)currentTime{
     static NSTimeInterval lassCallTime;
     
@@ -234,14 +341,37 @@ static const CGFloat kMinFPS = 10.0 / 60.0;
         timeElapsed = kMinFPS;
     }
     lassCallTime = currentTime;
-        
+    
+    
     [self.player update];
-    if (!self.player.crashed) {
+    
+    if(self.gameState == GameRunning && self.player.crashed)
+    {
+        [self bump];
+        [self gameOver];
+    }
+    
+    if (self.gameState != GameOver) {
         [self.background updateWithTimeElapsed:timeElapsed];
         [self.foreground updateWithTimeElapsed:timeElapsed];
         [self.obstacles updateWithTimeElapsed:timeElapsed];
     }
 
+}
+
+-(MedalType)getMedalForCurrentScore
+{
+    NSInteger adjustedScore = self.score - (self.bestScore /5);
+    if (adjustedScore >= 45){
+        return MedalGold;
+    }else if (adjustedScore >= 25)
+    {
+        return MedalSilver;
+    }
+    else if (adjustedScore >= 10){
+        return MedalBronze;
+    }
+    return MedalNone;
 }
 
 @end

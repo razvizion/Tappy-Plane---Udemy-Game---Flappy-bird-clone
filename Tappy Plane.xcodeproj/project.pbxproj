@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32006EF0192A86FB002CF26F /* TPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 32006EEF192A86FB002CF26F /* TPConstants.m */; };
+		321321D31933DAC000663684 /* TPGetReadyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 321321D21933DAC000663684 /* TPGetReadyMenu.m */; };
 		3256133A1931FD2100960D95 /* TPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 325613391931FD2100960D95 /* TPButton.m */; };
 		3256133D1932155E00960D95 /* TPGameOverMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3256133C1932155E00960D95 /* TPGameOverMenu.m */; };
 		32D948EE1923EAB4006914A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D948ED1923EAB4006914A9 /* Foundation.framework */; };
@@ -36,8 +37,18 @@
 		32E5F626192BC6AE00F25DF2 /* TPObstacleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E5F625192BC6AE00F25DF2 /* TPObstacleLayer.m */; };
 		32E90DAD192FEA97008B017C /* TilesetGraphics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E90DAC192FEA97008B017C /* TilesetGraphics.plist */; };
 		32E90DB0192FFAB1008B017C /* TPTilesetTextureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E90DAF192FFAB1008B017C /* TPTilesetTextureProvider.m */; };
+		32EF474019353E2800966E36 /* SnowEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 32EF473F19353E2800966E36 /* SnowEffect.sks */; };
+		32EF474219353EBA00966E36 /* RainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 32EF474119353EBA00966E36 /* RainEffect.sks */; };
+		32EF4745193542E500966E36 /* TPWeatherLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF4744193542E500966E36 /* TPWeatherLayer.m */; };
 		32F91B8119252C0900588829 /* TPScrollingNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F91B8019252C0900588829 /* TPScrollingNode.m */; };
 		32F91B8419252D5A00588829 /* TPScrollingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F91B8319252D5A00588829 /* TPScrollingLayer.m */; };
+		32FB2C76193667C500601531 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 32FB2C75193667C500601531 /* Explosion.sks */; };
+		32FB2C79193687C500601531 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FB2C78193687C500601531 /* SoundManager.m */; };
+		32FB2C801936882700601531 /* Click.caf in Resources */ = {isa = PBXBuildFile; fileRef = 32FB2C7B1936882700601531 /* Click.caf */; };
+		32FB2C811936882700601531 /* Collect.caf in Resources */ = {isa = PBXBuildFile; fileRef = 32FB2C7C1936882700601531 /* Collect.caf */; };
+		32FB2C821936882700601531 /* Crunch.caf in Resources */ = {isa = PBXBuildFile; fileRef = 32FB2C7D1936882700601531 /* Crunch.caf */; };
+		32FB2C831936882700601531 /* Engine.caf in Resources */ = {isa = PBXBuildFile; fileRef = 32FB2C7E1936882700601531 /* Engine.caf */; };
+		32FB2C841936882700601531 /* Rain.caf in Resources */ = {isa = PBXBuildFile; fileRef = 32FB2C7F1936882700601531 /* Rain.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +64,8 @@
 /* Begin PBXFileReference section */
 		32006EEE192A86FB002CF26F /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		32006EEF192A86FB002CF26F /* TPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPConstants.m; sourceTree = "<group>"; };
+		321321D11933DAC000663684 /* TPGetReadyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPGetReadyMenu.h; sourceTree = "<group>"; };
+		321321D21933DAC000663684 /* TPGetReadyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPGetReadyMenu.m; sourceTree = "<group>"; };
 		325613381931FD2100960D95 /* TPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPButton.h; sourceTree = "<group>"; };
 		325613391931FD2100960D95 /* TPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPButton.m; sourceTree = "<group>"; };
 		3256133B1932155E00960D95 /* TPGameOverMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPGameOverMenu.h; sourceTree = "<group>"; };
@@ -94,10 +107,22 @@
 		32E90DAC192FEA97008B017C /* TilesetGraphics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TilesetGraphics.plist; sourceTree = "<group>"; };
 		32E90DAE192FFAB1008B017C /* TPTilesetTextureProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTilesetTextureProvider.h; sourceTree = "<group>"; };
 		32E90DAF192FFAB1008B017C /* TPTilesetTextureProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTilesetTextureProvider.m; sourceTree = "<group>"; };
+		32EF473F19353E2800966E36 /* SnowEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SnowEffect.sks; sourceTree = "<group>"; };
+		32EF474119353EBA00966E36 /* RainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainEffect.sks; sourceTree = "<group>"; };
+		32EF4743193542E500966E36 /* TPWeatherLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPWeatherLayer.h; sourceTree = "<group>"; };
+		32EF4744193542E500966E36 /* TPWeatherLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPWeatherLayer.m; sourceTree = "<group>"; };
 		32F91B7F19252C0900588829 /* TPScrollingNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPScrollingNode.h; sourceTree = "<group>"; };
 		32F91B8019252C0900588829 /* TPScrollingNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPScrollingNode.m; sourceTree = "<group>"; };
 		32F91B8219252D5A00588829 /* TPScrollingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPScrollingLayer.h; sourceTree = "<group>"; };
 		32F91B8319252D5A00588829 /* TPScrollingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPScrollingLayer.m; sourceTree = "<group>"; };
+		32FB2C75193667C500601531 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
+		32FB2C77193687C500601531 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
+		32FB2C78193687C500601531 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
+		32FB2C7B1936882700601531 /* Click.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Click.caf; sourceTree = "<group>"; };
+		32FB2C7C1936882700601531 /* Collect.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Collect.caf; sourceTree = "<group>"; };
+		32FB2C7D1936882700601531 /* Crunch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Crunch.caf; sourceTree = "<group>"; };
+		32FB2C7E1936882700601531 /* Engine.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Engine.caf; sourceTree = "<group>"; };
+		32FB2C7F1936882700601531 /* Rain.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rain.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,11 +184,14 @@
 		32D948F51923EAB4006914A9 /* Tappy Plane */ = {
 			isa = PBXGroup;
 			children = (
+				32FB2C7A1936881B00601531 /* Sounds */,
 				32D9494D192419B1006914A9 /* Particle Effects */,
 				32D9494C1923FE8E006914A9 /* Resources */,
 				32D949451923F7E6006914A9 /* Graphics.atlas */,
 				32006EEE192A86FB002CF26F /* TPConstants.h */,
 				32006EEF192A86FB002CF26F /* TPConstants.m */,
+				32FB2C77193687C500601531 /* SoundManager.h */,
+				32FB2C78193687C500601531 /* SoundManager.m */,
 				32E90DAE192FFAB1008B017C /* TPTilesetTextureProvider.h */,
 				32E90DAF192FFAB1008B017C /* TPTilesetTextureProvider.m */,
 				32D948FE1923EAB4006914A9 /* TPAppDelegate.h */,
@@ -187,10 +215,14 @@
 				32F91B8019252C0900588829 /* TPScrollingNode.m */,
 				32F91B8219252D5A00588829 /* TPScrollingLayer.h */,
 				32F91B8319252D5A00588829 /* TPScrollingLayer.m */,
+				321321D11933DAC000663684 /* TPGetReadyMenu.h */,
+				321321D21933DAC000663684 /* TPGetReadyMenu.m */,
 				3256133B1932155E00960D95 /* TPGameOverMenu.h */,
 				3256133C1932155E00960D95 /* TPGameOverMenu.m */,
 				32D9490C1923EAB4006914A9 /* Images.xcassets */,
 				32D948F61923EAB4006914A9 /* Supporting Files */,
+				32EF4743193542E500966E36 /* TPWeatherLayer.h */,
+				32EF4744193542E500966E36 /* TPWeatherLayer.m */,
 			);
 			path = "Tappy Plane";
 			sourceTree = "<group>";
@@ -238,8 +270,23 @@
 			children = (
 				32D9494E192419D4006914A9 /* PlanePuffTrail.sks */,
 				32D9494F192419D4006914A9 /* spark.png */,
+				32EF473F19353E2800966E36 /* SnowEffect.sks */,
+				32EF474119353EBA00966E36 /* RainEffect.sks */,
+				32FB2C75193667C500601531 /* Explosion.sks */,
 			);
 			name = "Particle Effects";
+			sourceTree = "<group>";
+		};
+		32FB2C7A1936881B00601531 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				32FB2C7B1936882700601531 /* Click.caf */,
+				32FB2C7C1936882700601531 /* Collect.caf */,
+				32FB2C7D1936882700601531 /* Crunch.caf */,
+				32FB2C7E1936882700601531 /* Engine.caf */,
+				32FB2C7F1936882700601531 /* Rain.caf */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,13 +367,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				32D948FA1923EAB4006914A9 /* InfoPlist.strings in Resources */,
+				32FB2C811936882700601531 /* Collect.caf in Resources */,
 				32D9494B1923FDCE006914A9 /* PlaneAnimations.plist in Resources */,
+				32EF474219353EBA00966E36 /* RainEffect.sks in Resources */,
 				32E90DAD192FEA97008B017C /* TilesetGraphics.plist in Resources */,
+				32FB2C821936882700601531 /* Crunch.caf in Resources */,
 				32D94950192419D4006914A9 /* PlanePuffTrail.sks in Resources */,
+				32FB2C76193667C500601531 /* Explosion.sks in Resources */,
+				32EF474019353E2800966E36 /* SnowEffect.sks in Resources */,
+				32FB2C801936882700601531 /* Click.caf in Resources */,
+				32FB2C841936882700601531 /* Rain.caf in Resources */,
 				32D94951192419D4006914A9 /* spark.png in Resources */,
 				32D9490D1923EAB4006914A9 /* Images.xcassets in Resources */,
 				32D949461923F7E6006914A9 /* Graphics.atlas in Resources */,
 				32D949031923EAB4006914A9 /* Main.storyboard in Resources */,
+				32FB2C831936882700601531 /* Engine.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,9 +408,12 @@
 				32D948FC1923EAB4006914A9 /* main.m in Sources */,
 				3256133D1932155E00960D95 /* TPGameOverMenu.m in Sources */,
 				32D949491923F910006914A9 /* TPPlane.m in Sources */,
+				32FB2C79193687C500601531 /* SoundManager.m in Sources */,
+				321321D31933DAC000663684 /* TPGetReadyMenu.m in Sources */,
 				32DC2B65192E83FA009570F7 /* TPCollectable.m in Sources */,
 				32E90DB0192FFAB1008B017C /* TPTilesetTextureProvider.m in Sources */,
 				32D9492B1923EB4B006914A9 /* TPGameScene.m in Sources */,
+				32EF4745193542E500966E36 /* TPWeatherLayer.m in Sources */,
 				32DC2B68192EA48F009570F7 /* TPBitmapFontLabel.m in Sources */,
 				32F91B8419252D5A00588829 /* TPScrollingLayer.m in Sources */,
 				32F91B8119252C0900588829 /* TPScrollingNode.m in Sources */,
@@ -424,6 +482,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -462,6 +521,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;

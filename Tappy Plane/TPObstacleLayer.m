@@ -9,6 +9,7 @@
 #import "TPObstacleLayer.h"
 #import "TPConstants.h"
 #import "TPTilesetTextureProvider.h"
+#import "SoundManager.h"
 
 @interface TPObstacleLayer()
 
@@ -178,6 +179,7 @@ static NSString *const kTPKeyCollectableStar = @"CollectableStar";
         object = [TPCollectable spriteNodeWithTexture:[atlas textureNamed:@"starGold"]];
         ((TPCollectable *)object).pointValue=1;
         ((TPCollectable *)object).delegate = self.collectableDelegate;
+        ((TPCollectable *)object).collectionSound = [Sound soundNamed:@"Collect.caf"];
         object.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:object.size.width*0.33];
         object.physicsBody.categoryBitMask = kTPCategoryCollectable;
         object.physicsBody.dynamic = NO;

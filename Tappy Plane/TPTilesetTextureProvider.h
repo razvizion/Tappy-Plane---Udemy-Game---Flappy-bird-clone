@@ -11,6 +11,8 @@
 
 @interface TPTilesetTextureProvider : NSObject
 
+@property (nonatomic) NSString *currentTilesetName;
+
 +(instancetype)getProvider;
 
 -(void)ranodmizeTileset;

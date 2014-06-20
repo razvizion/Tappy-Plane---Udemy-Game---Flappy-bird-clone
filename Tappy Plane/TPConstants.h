@@ -13,5 +13,8 @@
 extern const uint32_t kTPCategoryPlane;
 extern const uint32_t kTPCategoryGround;
 extern const uint32_t kTPCategoryCollectable;
-
+extern NSString *const kTPTilesetGrass;
+extern NSString *const kTPTilesetDirt;
+extern NSString *const kTPTilesetIce;
+extern NSString *const kTPTilesetSnow;
 @end

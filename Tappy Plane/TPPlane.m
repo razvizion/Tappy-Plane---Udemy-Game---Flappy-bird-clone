@@ -9,12 +9,17 @@
 #import "TPPlane.h"
 #import "TPConstants.h"
 #import "TPCollectable.h"
+#import "SoundManager.h"
+
 
 @interface TPPlane()
 
 @property (nonatomic) NSMutableArray *planeAnimations; //Hold animation actions
 @property (nonatomic) SKEmitterNode *puffTrailEmitter;
+@property (nonatomic) SKEmitterNode *explosionEmitter;
 @property (nonatomic) CGFloat pufftrailBirthRate;
+@property (nonatomic) SKAction *crashTintAction;
+@property (nonatomic) Sound *engineSound;
 
 @end
 
@@ -63,11 +68,37 @@ static const CGFloat kTPMaxAltitude = 300.0;
         //Setup puff trail particle effect
         
         NSString *particleFile = [[NSBundle mainBundle] pathForResource:@"PlanePuffTrail" ofType:@"sks"];
+        
+        NSString *explosionFile = [[NSBundle mainBundle] pathForResource:@"Explosion" ofType:@"sks"];
         _puffTrailEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:particleFile];
         _puffTrailEmitter.position = CGPointMake(-self.size.width * 0.5, -5);
         [self addChild:self.puffTrailEmitter];
         self.pufftrailBirthRate = self.puffTrailEmitter.particleBirthRate;
         self.puffTrailEmitter.particleBirthRate = 0;
+        
+        
+        _explosionEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:explosionFile];
+        _explosionEmitter.position = CGPointMake(self.size.width * 0.5, 0);
+        [self addChild:self.explosionEmitter];
+        self.explosionEmitter.particleBirthRate=0;
+        
+        
+        //Setup action to tint plane when it crashes
+        
+        SKAction *tint = [SKAction group:@[[SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:0.8 duration:0.0],[SKAction runBlock:^{
+            self.explosionEmitter.particleBirthRate=500;
+        }]]];
+        SKAction *removeTint = [SKAction group:@[[SKAction colorizeWithColorBlendFactor:0.0 duration:0.2],[SKAction runBlock:^{
+            self.explosionEmitter.particleBirthRate=0;
+        }]]];
+
+        
+        _crashTintAction = [SKAction sequence:@[tint,removeTint]];
+        
+        //Setup engine sound
+        
+        _engineSound = [Sound soundNamed:@"Engine.caf"];
+        _engineSound.looping = YES;
         
         [self setRandomColour];
         
@@ -90,11 +121,14 @@ static const CGFloat kTPMaxAltitude = 300.0;
 -(void)setEngineRunning:(BOOL)engineRunning{
     _engineRunning = engineRunning && !self.crashed;
     if(engineRunning){
+        [self.engineSound play];
+        [self.engineSound fadeIn:1.0];
         self.puffTrailEmitter.targetNode = self.parent;
         [self actionForKey:kTPKeyPlaneAnimation].speed = 1;
         self.puffTrailEmitter.particleBirthRate = self.pufftrailBirthRate;
         
     }else{
+        [self.engineSound fadeOut:0.5];
         [self actionForKey:kTPKeyPlaneAnimation].speed = 0;
         self.puffTrailEmitter.particleBirthRate = 0;
     }
@@ -130,6 +164,8 @@ static const CGFloat kTPMaxAltitude = 300.0;
         if(body.categoryBitMask == kTPCategoryGround){
             //hit the ground.
             self.crashed = YES;
+            [[SoundManager sharedManager] playSound:@"Crunch.caf"];
+            [self runAction:self.crashTintAction];
             
         }
         if(body.categoryBitMask == kTPCategoryCollectable)
@@ -172,6 +208,7 @@ static const CGFloat kTPMaxAltitude = 300.0;
     }
     if(!self.crashed){
         self.zRotation = fmaxf(fminf(self.physicsBody.velocity.dy, 400),-400)/400;
+        self.engineSound.volume = 0.25 + fmaxf(fminf(self.physicsBody.velocity.dy, 300),0)/300 * 0.75;
     }
 }
 

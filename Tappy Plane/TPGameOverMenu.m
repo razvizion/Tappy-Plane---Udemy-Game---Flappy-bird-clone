@@ -9,6 +9,7 @@
 #import "TPGameOverMenu.h"
 #import "TPBitmapFontLabel.h"
 #import "TPButton.h"
+#import "SoundManager.h"
 
 @interface TPGameOverMenu()
 
@@ -98,6 +99,7 @@
         _playButton = [TPButton spriteNodeWithTexture:[atlas textureNamed:@"buttonPlay"]];
         _playButton.position = CGPointMake(CGRectGetMidX(panelBackground.frame), CGRectGetMinY(panelBackground.frame)-25);
         [_playButton setPressedTarget:self withAction:@selector(pressedPlayButton)];
+        _playButton.pressedSound = [Sound soundNamed:@"Click.caf"];
         
         [self addChild:_playButton];
         
@@ -105,14 +107,16 @@
         //Set initial values
         self.medal = MedalNone;
         self.score = 0;
-        self.bestScore = 250;
+        self.bestScore = 0;
     }
     return self;
 }
 
 -(void)pressedPlayButton
 {
-    [self show];
+    if(self.delegate){
+        [self.delegate pressedStartNewGameButton];
+    }
 }
 
 -(void)setScore:(NSInteger)score
